@@ -14,8 +14,9 @@ app.get("/", (req, res) => {
     app.send("<h1>Homepage del server express</h1>")
 });
 
-app.use("/movies", router)
 app.use(express.static("public"));
+app.use("/movies", router)
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
