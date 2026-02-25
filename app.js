@@ -5,17 +5,20 @@ const port = process.env.PORT;
 const myOrigin = process.env.ORIGIN;
 
 const router = require("./routers/router")
+const imagePathMiddleware = require("./middlewares/imagePath")
 
 app.use(cors({
     origin: myOrigin
 }))
 
 app.get("/", (req, res) => {
-    app.send("<h1>Homepage del server express</h1>")
+    res.send("<h1>Homepage del server express</h1>")
 });
 
 app.use(express.static("public"));
-app.use("/movies", router)
+app.use(imagePathMiddleware);
+app.use("/movies", router);
+
 
 
 app.listen(port, () => {
