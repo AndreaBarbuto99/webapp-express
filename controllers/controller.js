@@ -46,4 +46,23 @@ function show(req, res) {
         });
     });
 }
-module.exports = { show, index };
+
+
+function storeReview(req, res) {
+
+    const { id } = req.params;
+
+    const { name, vote, text } = req.body;
+
+    const sqlStore = `INSERT INTO reviews (text, name, vote, book_id) VALUES (?, ?, ?, ?)`;
+
+    connection.query(sqlStore, [text, name, vote, id], (err, results) => {
+        if (err) return res.status(500).json({ error: "Database query has failed" });
+        res.status(201);
+        res.json({
+            message: "Review added succesfully",
+            id: results.insertId
+        });
+    })
+}
+module.exports = { show, index, storeReview }; 
